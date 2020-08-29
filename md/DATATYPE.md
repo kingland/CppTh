@@ -16,7 +16,7 @@
 * char32_t (C++11)
 * wchar_t
 ### อัตโนมัติ
-* auto (C++11) คอมไพล์เลอร์จะจัดการชนิดตัวแปรเอง
+* auto (C++11) คอมไพเลอร์จะจัดการชนิดตัวแปรเอง
 * decltype(expr) (C++11)
 
 ```cpp
@@ -59,7 +59,8 @@ int main()
 }
 ```
 
-## uniform initialization (C++11)
+## ค่าเริ่มต้น
+* uniform initialization (C++11)
 ```cpp
 int n{2};
 
@@ -79,9 +80,9 @@ Person p{"John Brown", 42};
 ```
 
 ## C Enum 
-* Not type-safe
-* ถูกเปลี่ยนเป็น integer
-* นำมาเปรียบเทียบกันได้ แม้ข้อมูลจะเป็นคนละชนิดกัน
+* non type-safe
+* เปลี่ยนเป็น integer ตอนคอมไพล์
+* สามารถนำมาเปรียบเทียบกันได้ แม้ข้อมูลจะเป็นคนละชนิดกัน
 ```cpp
 enum Fruit {apple, banana, melon};
 enum Vegetable {tomato, cucumber, onion};

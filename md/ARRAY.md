@@ -47,3 +47,30 @@ int * a = new int[3];
 ```cpp
 delete [] a;
 ```
+
+## Array of objects
+```cpp
+class Point
+{
+    int x, y;
+public:
+    Point( int x=0, int y=0);
+    //...
+};
+
+Point * t1 = new Point[4];
+Point t1[4];
+```
+
+## Array of pointers
+```cpp
+Point ** t2 = new Point*[ 4 ];
+for(int i=0; i<4; ++i )
+{
+    t2[i] = new Point(0,0);
+}
+for( int i=0; i<4; ++i )
+{
+    cout<<*t2[ i ]<<endl;
+}
+```
