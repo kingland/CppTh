@@ -655,14 +655,17 @@ int& GetValueRef()
 
 void SetValue(int i)
 {
+    // Lvalue & Rvalue
 }
 
 void SetValueRef(int& i)
 {
+    // Lvalue Reference
 }
 
 void SetValueCont(const int& i)
 {
+    // Lvalue & Rvalue Reference
 }
 
 void Print(std::string& str)
@@ -681,6 +684,7 @@ int y = x; // y <= Lvalue, x <= Lvalue
 int z = GetValue(); // z <= Lvalue, GetValue() <= Rvalue (Tempolary Value)
 int& a = 10; // Error : a <= Lvalue reference ไม่สามารถเรพเฟอเรนซ์ Rvalue
 const int& b = 10; // OK: คอมไพล์เลอร์จะเปลี่ยน 10 เป็น Tempolary Value
+
 GetValue() = 10; // Error : GetValue() not Lvalue
 GetValueRef() = 10; // OK : GetValueRef() return Lvalue reference
 SetValue(x); // OK: x <= Lvalue
@@ -689,6 +693,7 @@ SetValueRef(x); // OK: x <= Lvalue
 SetValueRef(10); // Error : SetValueRef รับอากิวเมนต์เป็น Lvalue reference, 10 <= Rvalue
 SetValueCont(x); // OK
 SetValueCont(10); // OK
+
 std::string hello = "Hello";
 std::string world = "World";
 std::string helloworld = hello + world;
