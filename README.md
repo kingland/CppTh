@@ -16,3 +16,4 @@
 *	[เรฟเฟอเร้นท์](https://github.com/kingland/CppTh/blob/master/md/REFERENCE.md)
 *	[ข้อผิดพลาด](https://github.com/kingland/CppTh/blob/master/md/EXCEPTION.md)
 *	[โปรแกรมเชิงวัตถุ](https://github.com/kingland/CppTh/blob/master/md/OOP.md)
+*	[โอเปอเรเตอร์](https://github.com/kingland/CppTh/blob/master/md/OPERATOR.md)
