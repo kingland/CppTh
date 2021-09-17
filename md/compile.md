@@ -28,7 +28,7 @@
 ```
 
 ## ifndef
-* ป้องกันเรียกใช้(#include)งานซ้ำซ้อน
+* การใช้ ifndef เพื่อป้องกัน #include ไฟล์ซ้ำซ้อน 
 ```cpp
 //Haeder Guard
 #ifndef ME_H

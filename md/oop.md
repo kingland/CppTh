@@ -704,6 +704,7 @@ Print(hello + world); // OK : hello + world <= Rvalue (Tempolary Value) , เร
 ## Move Semantics (C++11)
 * Shallow Copy
 * Ownership transfer to new object
+* STL ทุกคลาสรองรับ Move sementics
 ```cpp
 class string
 {
@@ -784,5 +785,4 @@ vector<int> makeBigVector()
 //content of the temporary created vector is moved in v (not copy)
 auto v = makeBigVector();
 ```
-* คลาส STL ทุกคลาสรองรับ Move sementics
 
