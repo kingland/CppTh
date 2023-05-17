@@ -48,7 +48,7 @@ int * a = new int[3];
 delete [] a;
 ```
 
-## Array of objects
+## array of objects
 ```cpp
 class Point
 {
@@ -62,7 +62,7 @@ Point * t1 = new Point[4];
 Point t1[4];
 ```
 
-## Array of pointers
+## array of pointers
 ```cpp
 Point ** t2 = new Point*[ 4 ];
 for(int i=0; i<4; ++i )

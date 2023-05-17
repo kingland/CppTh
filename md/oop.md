@@ -1,15 +1,34 @@
 ## คลาส (Class)
-* class คือ data + operation พิมพ์เขียวที่นำไปสร้าง อินซแตนซ์(instance) หรือ ออปเจ็ค(object)
+* class คือ data และ operation 
+* class คือ พิมพ์เขียว(รูปแบบโครงสร้างหรือต้นแบบ)ที่นำไปสร้าง อินซแตนซ์(instance) หรือ ออปเจ็ค(object)
 * data คือ properties หรือ attribute บรรจุข้อมูลต่างๆ
 * operation คือ method, behaviors พฤติกรรมที่ออปเจ็คสามารถกระทำได้
-* data, operation มีระดับการเข้าถึงข้อมูลและฟังก์ชันการทำงาน access level
+* data, operation ระดับการเข้าถึงข้อมูลและฟังก์ชันการทำงาน access level
     * private -
     * public +
     * protected #
-* Object = Class instance
+* ออปเจ็ค (Object) = อินซแตนซ์ (Class instance)
 
 ## Encapsulation
 * ออปเจ็คห่อหุ้มข้อมูล(data) และฟังก์ชันการทำงาน(functionality)
+
+## คลาส C++ ที่ดีควรมี
+* implicit constructor
+```cpp
+T :: T(){ … }
+```
+* destructor
+```cpp
+T :: ~T(){ … }
+```
+* copy constructor
+```cpp
+T :: T( const T& ){ … }
+```
+* assignment operator
+```cpp
+T& T :: operator=( const T& ){ … }
+```
 
 ## Class Declaration 
 * ส่วน interface หรือ abstract ใน C++
@@ -48,12 +67,12 @@ private:
 
 ## Constructor
 * กำหนดค่าเริ่มต้น member data
-* มีชื่อเหมือนกับคลาส(class)
-* ถูกเรียกใช้อัตโนมัติ
+* ชื่อเหมือนกับชื่อคลาส(class)
+* จะถูกเรียกใช้งานอัตโนมัติ
 * ไม่มี return type
-* มีได้มากกว่า 1 constructor (ไม่มีคอมไพเลอร์จะสร้างให้อัตโนมัติ)
-* ไม่ควรเป็น const ฟังก์ชัน
-* ควรใช้แบบ initializer list
+* สามารถมีมากกว่า 1 Constructor (ไม่ระบุคอมไพเลอร์จะสร้างให้อัตโนมัติ)
+* ไม่เป็น const ฟังก์ชัน
+* แนะนำใช้แบบ initializer list
 
 ```cpp
 //constructor
@@ -103,7 +122,7 @@ public:
 X ix(10); //ERROR
 X dx(3.14); // OK
 ```
-* delegating constructor
+* delegating constructor (C++11)
 ```cpp
 //delegating constructor (C++11)
 class SomeType
@@ -115,7 +134,7 @@ public:
     SomeType() : SomeType(42) {}
 };
 ```
-* เรพเฟอเรนซ์ (reference) ใน constructor
+* เรพเฟอเรนซ์ & (reference) ในคอนสตัคเตอร์
 ```cpp
 //constructor reference value can't assign to member
 class Ref
@@ -138,7 +157,7 @@ private:
 }
 ```
 
-* copy constructor ไม่มีคอมไพเลอร์จะสร้างให้
+* ก๊อปปี้คอนสตัคเตอร์(Copy Constructor) ไม่ระบุคอมไพเลอร์จะสร้างให้อัตโนมัติ
 ```cpp
 Employee emp1(1, "Robert", "Black", 4000, true);
 
@@ -199,9 +218,9 @@ void Stack::push( double inDouble )
 }
 ```
 ## Destructor
-* มีได้ 1  destructor
-* เรียกใช้อัตโนมัติเมื่อต้องการทำลายออปเจ็ค
-* ไม่มีคอมไพเลอร์จะสร้าง destructor ให้เอง
+* สามารถมีมากว่า 1  Destructor
+* เรียกใช้งานอัตโนมัติเมื่อต้องการทำลายออปเจ็ค (Object)
+* ไม่ระบุคอมไพเลอร์จะสร้าง Destructor ให้อัตโนมัติ
 
 ```cpp
 Stack::~Stack()
@@ -213,8 +232,8 @@ Stack::~Stack()
     }
 }
 ```
-* Stack s(10) จะเรียก destructor เมื่อสิ้นสุดการใช้งาน (pop ออกจาก stack)
-* Stack* s1 = new Stack(5) เราต้องเรียก delete s1 เพื่อทำลายออปเจ็ค ระวังในการใช้งานอาจเกิด memory leak
+* Stack s(10) เรียกใช้งาน Destructor เมื่อสิ้นสุดการใช้งาน (pop ออกจาก stack)
+* Stack* s1 = new Stack(5) ต้องเรียกใช้งาน delete s1 เพื่อทำลายออปเจ็ค ระวังในการใช้งานอาจเกิด memory leak
 ```cpp
 { // block begin
     Stack s(10); // s: constructor
@@ -240,163 +259,10 @@ public:
 }
 ```
 
-## Member Function
-* สร้างไว้ในไฟล์ .cpp หรือ .cc
-* const ทำให้ไม่สามารถเปลี่ยนแปลงข้อมูลในออปเจ็ค
-
-```cpp
-void Employee::hire()
-{
-    bHired = true;
-}
-
-void Employee::getFireName() const 
-{
-    //ฟังก์ชัน const ไม่สามารถเปลี่ยนแปลงข้อมูลออปเจ็ค
-    return mFirstName;
-}
-
-void Employee::display() const 
-{
-    cout << "Employee: " << getLastName() << ", "
-    << getFirstName() << endl;
-    cout << "-------------------------" << endl;
-    cout << (bHired ? "Current Employee" :
-    "Former Employee") << endl;
-    cout << "Employee ID: " << getId() << endl;
-    cout << "Salary: " << getSalary() << endl;
-    cout << endl;
-}
-```
-## ฟังก์ชัน Const
-* ฟังก์ชั่น foo สามารถเรียกเฉพาะฟังก์ชัน const ของออปเจ็ค Employee
-```cpp
-void foo( const Employee& e)
-{
-    e.display();    // OK. display() is a const member function
-    e.fire();       // ERROR. fire() is not a const member function
-}
-
-int main() 
-{
-    Employee emp;
-    emp.setFirstName("Robert");
-    emp.setLastName("Black");
-    emp.setId(1);
-    emp.setSalary(1000);
-    emp.hire();
-    emp.display();
-    foo( emp );
-    return 0;
-}
-```
-## ฟังก์ชัน Static
-* เข้าถึงข้อมูลเฉพาะ static เหมือนกัน
-* เรียกใช้งานผ่าน class scope 
-* ไม่มีพอยเตอร์ this
-* มี 1 ก๊อปปี้
-```cpp
-//Complex.h
-class Complex
-{
-public:
-    Complex(int re=0, int im=0);
-    static int getNumComplex();
-// ...
-private:
-    static int num_complex; // <= Only one copy
-    double re, im;
-};
-
-//Complex.cpp
-int Complex::num_complex = 0;
-int Complex::getNumComplex()
-{
-    return num_complex;
-}
-
-Complex::Complex(int re, int im)
-{
-    this->re = re;
-    this->im = im;
-    ++num_complex;
-}
-
-//Static method invocation
-Complex z1(1,2), z2(2,3), z3;
-cout<<"Number of complexs:"<<Complex::getNumComplex()<<endl;
-cout<<"Number of complexes: "<<z1.getNumComplex()<<endl;
-
-```
-## Function Argument
-* by value 
-    * works on a copy of the variable
-    * copy constructor will be used
-* by reference
-    * works on the original variable
-    * modify it
-* by constant reference
-    * works on the original variable
-    * not modify
-
-```cpp
-void f1(int x) {x = x + 1;} //copy constructor will be used on the argument
-void f2(int& x) {x = x + 1;}
-void f3(const int& x) {x = x + 1;} //ERROR: not modify
-void f4(int *x) {*x = *x + 1;}
-int main()
-{
-    int y = 5;
-    f1(y);
-    f2(y);
-    f3(y);
-    f4(&y);
-    return 0;
-}
-```
-
-## Friend
-* function, class, data
-* เข้าถึง private member ของ class
-* ทำ operator overloading
-```cpp
-class Test{
-private:
-    int iValue;
-    static int sValue;
-public:
-    Test( int in ):iValue( in ){}
-    void print() const;
-    static void print( const Test& what ); //static function
-    friend void print( const Test& what ); //friend function
-};
-
-
-int Test :: sValue = 0;
-void Test::print() const{
-    cout<<"Member: "<<iValue<<endl;
-}
-
-void Test::print( const Test& what ){
-    cout<<"Static: "<<what.iValue<<endl;
-}
-
-void print( const Test& what ){
-    cout<<"Friend: "<<what.iValue<<endl;
-}
-
-int main() {
-    Test test( 10 );
-    test.print();
-    Test::print( test );
-    print( test );
-}
-```
-
 ## Object Life Cycle
 
-### creation
-* เรียกใช้ constructor อัตโนมัติ
+### การสร้างออปเจ็ก (Object Creation)
+* เรียกคอนสตัคเตอร์ (Constructor) อัตโนมัติ
 
 ```cpp
 int main()
@@ -433,15 +299,18 @@ public:
 };
 
 ```
-* พอยเตอร์ this อ้างอิงออปเจ็คปัจจุบันที่ทำงานอยู่
+
+* this คือ พอยเตอร์ (Pointer) อ้างอิงออปเจ็คปัจจุบันที่ทำงานอยู่
+
 ```cpp
 Stack::Stack( int mCapacity ){
  this → mCapacity = mCapacity;
  //..
 }
 ```
-### assignment
-* copy-constructor
+### การกำหนดค่า (Assignment)
+* กำหนดค่าโดยใช้ copy-constructor
+
 ```cpp
 Employee emp1(1, "Robert", "Black", 4000, true);
 
@@ -450,9 +319,10 @@ Employee emp2( emp1 );      //copy-constructor called
 Employee emp3 = emp2;       //copy-constructor called
 void foo( Employee emp );   //copy-constructor called
 ```
-### destruction
-* allocate on stack ทำลายอัตโนมัติ (ถูก pop ออกจาก stack)
-* allocate on heap จะทำลายต้องสั่ง delete
+### การทำลายออปเจ็ค (Object Destruction)
+* กรณีใช้งานเมมโมรี่บน stack (allocate on stack) ทำลายอัตโนมัติถูก pop ออกจาก stack
+* กรณีใช้งานเมมโมรี่บน heap (allocate on heap) การทำลายต้องคำสั่ง delete
+
 ```cpp
 { // block begin
     Stack s(10); // s: constructor 
@@ -462,49 +332,6 @@ void foo( Employee emp );   //copy-constructor called
     delete s1; //s1: destructor
     s.push(16);
 } // block end //s: destructor
-```
-
-## Inline Function
-* เพิ่มความเร็ว
-* ขนาดโปรแกรมใหญ่ขึ้น
-```cpp
-inline double square(double a)
-{
-    return a * a;
-}
-
-class Value
-{
-    int value;
-public:
-    inline int getValue()const{ return value; }
-
-    inline void setValue( int value )
-    {
-        this->value = value;
-    }
-}; 
-```
-
-## Returning
-```cpp
-// version 1
-vector<int> Max(const vector<int> & v1, const vector<int> & v2)
-{
-    if (v1.size() > v2.size())
-        return v1; //<= copy-constructor
-    else
-        return v2; //<= copy-constructor
-}
-
-// version 2
-const vector<int> & Max(const vector<int> & v1, const vector<int> & v2)
-{
-    if (v1.size() > v2.size())
-        return v1; //More efficient
-    else
-        return v2; //More efficient
-}
 ```
 
 ```cpp
@@ -525,8 +352,9 @@ for( int i=0; i<N; ++i){
 vector<int> result = selectOdd( v ); // <=copy constructor invocation
 ```
 
-## Stack vs. Heap
-* Heap –> Dynamic allocation
+## Allocate on Stack vs. Allocate on Heap
+* Allocate on Heap –> Dynamic allocation
+
 ```cpp
 void draw(){
     Point * p = new Point();
@@ -536,7 +364,8 @@ void draw(){
 }
 ```
 
-* Stack –> Automatic allocation
+* Allocate on Stack –> Automatic allocation
+
 ```cpp
 void draw()
 {
@@ -552,6 +381,7 @@ void draw()
 * struct = mostly data + convenience method
 * struct = default access public
 * class, struct สามารถทำงานร่วมกัน
+
 ```cpp
 class list
 {
@@ -573,6 +403,10 @@ public:
 
 ## Nested Classes
 * คลาสซ้อนคลาส
+* คลาส B กำหนดเป็น private ในคลาส A จะเรียกใช้ได้เฉพาะคลาส A
+* คลาส B กำหนดเป็น protected ในคลาส A จะเรียกใช้ได้คลาส A และคลาสที่สืบทอดจากคลาส A
+* คลาส B กำหนดเป็น public ในคลาส A จะเรียกใช้ทุกคลาส (A::B b;)
+
 ```cpp
 // Version 1
 class Queue
@@ -594,195 +428,9 @@ class Queue
     public:
         Item item;
         Node * next;
-        Node(const Item & i) : item(i), next(0) { }
-        };
+        Node(const Item & i) : item(i), next(0) { }    
         //...
     };
     //...
 };
 ```
-* คลาส B กำหนดเป็น private ในคลาส A จะเรียกใช้ได้เฉพาะคลาส A
-* คลาส B กำหนดเป็น protected ในคลาส A จะเรียกใช้ได้คลาส A และคลาสที่สืบทอดจากคลาส A
-* คลาส B กำหนดเป็น public ในคลาส A จะเรียกใช้ทุกคลาส (A::B b;)
-
-## คลาส C++ ที่ดีควรมี
-* implicit constructor
-```cpp
-T :: T(){ … }
-```
-* destructor
-```cpp
-T :: ~T(){ … }
-```
-* copy constructor
-```cpp
-T :: T( const T& ){ … }
-```
-* assignment operator
-```cpp
-T& T :: operator=( const T& ){ … }
-```
-
-## Lvalue
-* สิ่งอ้างอิงในการเข้าถึงออปเจ็ค (อาจเข้าถึงมากกว่าหนี่งที่)
-* อาจหมายถึง Location ในแมมโมรี่ที่จะใส่ค่าข้อมูล
-* ชื่อ (์Named Object)
-* พอยเตอร์, เรพเฟอร์เรนซ์ (pointer/reference)
-* may not be move
-
-## Lvalue Reference
-* int& a รับค่าเป็น Lvalue Reference
-
-## Rvalue
-* ออปเจ็คจริง
-* ออปเจ็คที่รีเทิร์นจากฟังก์ชัน (Temporary Object)
-* may be move
-
-## Rvalue Reference
-* int&& a รับค่าเป็น Rvalue Reference
-
-```cpp
-int GetValue()
-{
-    return 10;
-}
-
-int& GetValueRef()
-{
-    static int value = 10;
-    return value;
-}
-
-void SetValue(int i)
-{
-    // Lvalue & Rvalue
-}
-
-void SetValueRef(int& i)
-{
-    // Lvalue Reference
-}
-
-void SetValueCont(const int& i)
-{
-    // Lvalue & Rvalue Reference
-}
-
-void Print(std::string& str)
-{
-    // Lvalue Reference
-}
-
-void Print(std::string&& str)
-{
-    // Rvalue Reference
-}
-
-int x = 10; // x <= Lvalue, 10 <= Rvalue
-10 = x; // Error : 10 not Lvalue
-int y = x; // y <= Lvalue, x <= Lvalue
-int z = GetValue(); // z <= Lvalue, GetValue() <= Rvalue (Tempolary Value)
-int& a = 10; // Error : a <= Lvalue reference ไม่สามารถเรพเฟอเรนซ์ Rvalue
-const int& b = 10; // OK: คอมไพล์เลอร์จะเปลี่ยน 10 เป็น Tempolary Value
-
-GetValue() = 10; // Error : GetValue() not Lvalue
-GetValueRef() = 10; // OK : GetValueRef() return Lvalue reference
-SetValue(x); // OK: x <= Lvalue
-SetValue(10); // OK: 10 <= Rvalue (Tempolary Value)
-SetValueRef(x); // OK: x <= Lvalue
-SetValueRef(10); // Error : SetValueRef รับอากิวเมนต์เป็น Lvalue reference, 10 <= Rvalue
-SetValueCont(x); // OK
-SetValueCont(10); // OK
-
-std::string hello = "Hello";
-std::string world = "World";
-std::string helloworld = hello + world;
-Print(helloworld); // OK : helloworld <= Lvalue , เรียกฟังก์ชัน Print(std::string& str)
-Print(hello + world); // OK : hello + world <= Rvalue (Tempolary Value) , เรียกฟังก์ชัน Print(std::string&& str)
-```
-
-## Move Semantics (C++11)
-* Shallow Copy
-* Ownership transfer to new object
-* STL ทุกคลาสรองรับ Move sementics
-```cpp
-class string
-{
-    char* data;
-public:
-    string( const char* );
-    string( const string& );
-    ~string();
-}; 
-
-string :: string(const char* p)
-{
-    size_t size = strlen(p) + 1;
-    data = new char[size];
-    memcpy(data, p, size);
-}
-
-//copy constructor
-string :: string(const string& that)
-{
-    size_t size = strlen(that.data) + 1;
-    data = new char[size];
-    memcpy(data, that.data, size);
-}
-
-//string&& is an rvalue reference to a string
-string :: string(string&& that) // <= move constuctor
-{
-    data = that.data;
-    that.data = nullptr;
-}
-
-string :: ~string(){
-    delete[] data;
-} 
-```
-```cpp
-Stack::Stack(Stack&& rhs){
-    //move rhs to this
-    this->mCapacity = rhs.mCapacity;
-    this->mTop = rhs.mTop;
-    this->mElements = rhs.mElements;
-    //leave rhs in valid state
-    rhs.mElements = nullptr;
-    rhs.mCapacity = 0;
-    rhs.mTop = 0;
-}
-```
-
-## Copy Constructor vs Move Contructor
-* **Copy Constructor** deep copy
-* **Move Contructor** shallow copy + ownership transfer
-```cpp
-// constructor
-string s=”apple”;
-// copy constructor: s is an lvalue
-string s1 = s;
-// move constructor: right side is an rvalue
-string s2 = s + s1;
-```
-
-## Passing Large Objects
-* C++98
-```cpp
-void makeBigVector(vector<int>& out)
-{
-    //...
-}
-vector<int> v;
-makeBigVector( v );
-```
-* C++11
-```cpp
-vector<int> makeBigVector()
-{
-    //...
-}
-//content of the temporary created vector is moved in v (not copy)
-auto v = makeBigVector();
-```
-
