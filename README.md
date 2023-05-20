@@ -15,5 +15,5 @@
 *	[พอยเตอร์](https://github.com/kingland/CppTh/blob/master/md/pointer.md)
 *	[เรฟเฟอเร้นท์](https://github.com/kingland/CppTh/blob/master/md/reference.md)
 *	[ข้อผิดพลาด](https://github.com/kingland/CppTh/blob/master/md/exception.md)
-*	[โปรแกรมเชิงวัตถุ](https://github.com/kingland/CppTh/blob/master/md/oop.md)
-*	[คลาสโอเปอเรเตอร์](https://github.com/kingland/CppTh/blob/master/md/classoperator.md)
+*	[โปรแกรมเชิงวัตถุ](https://github.com/kingland/CppTh/blob/master/md/class.md)
+*	[คลาสโอเปอเรเตอร์](https://github.com/kingland/CppTh/blob/master/md/class_operator.md)
