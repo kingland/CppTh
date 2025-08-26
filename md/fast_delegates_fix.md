@@ -269,3 +269,8 @@ The demo and benchmark project is provided in two forms: 1) **Visual Studio 2015
 I tested the code with **Visual Studio 2015**, **Clang 4.0.0**, **GCC 5.1.0**.
 
 The C++ options included “disable language extensions” (**/Za** for Microsoft and Clang), which seems to be essential for Microsoft. However, with this option, one weird Microsoft problem is the failure to compile “//” comments at the end of a file; the problem can be solved, for example, by adding an empty line at the end of the file; I set up a “Microsoft guard” in the form of “/* … */” at the end of each file.
+
+
+## References
+
+* [The Impossibly Fast C++ Delegates, Fixed](https://www.codeproject.com/Articles/1170503/The-Impossibly-Fast-Cplusplus-Delegates-Fixed).
