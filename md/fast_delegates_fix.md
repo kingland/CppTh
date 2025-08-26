@@ -22,7 +22,7 @@ Notably, in general case, there are two levels of template and template instanti
 
 As to the factory functions, first thing to do was to note that the can be given the same name (so called “overloading”), in my choice, “create”.
 
-I also added the practically important support of lambda expressions in the style similar to std::function. The delegate of the same time could be assigned to an instance of 
+I also added the practically important support of lambda expressions in the style similar to **std::function**. The delegate of the same time could be assigned to an instance of 
 a lambda expression and called later. Importantly, the closure capture performed by a lambda expression is preserved in the delegate instance.
 
 All of the above is covered by a single delegate template class. I also added one more template, multicast delegate, in .NET style.
@@ -33,9 +33,9 @@ assignment operators giving the compiler the possibility to implicitly instantia
 Notably, the instances of both delegate types can be created as “empty”. It reflects the main paradigm of the delegate usage, when the delegate instance is hosted by some class;
 and the code using the class sets or adds its own handlers in the course of this usage.
 
-Performance comparison was done with the use of std::function. In all cases where the time measurements might be considered as relatively valid (very roughly, 
-starting from a hundred of delegate instances each called a hundred of times), the delegate type has shown superior performance compared with std::function. 
-Roughly, depending on many factors, the gain in delegate/std::function creation time was from 10 to 60 times, and performance gain in the call operations was from 1.1 to 3 times. 
+Performance comparison was done with the use of **std::function**. In all cases where the time measurements might be considered as relatively valid (very roughly, 
+starting from a hundred of delegate instances each called a hundred of times), the delegate type has shown superior performance compared with **std::function**. 
+Roughly, depending on many factors, the gain in **delegate/std::function** creation time was from 10 to 60 times, and performance gain in the call operations was from 1.1 to 3 times. 
 I performed the measurements on Windows in two platforms, x86 (IA-32) and x86-64, with Clang, GCC and Microsoft compilers — see also Compatibility and Build.
 
 ## Usage By Examples
@@ -94,7 +94,7 @@ std::function<double(double(int, char, const char*))> f
     = std::bind(&Sample::InstanceFunction, &sample, _1);
 ```
 
-The confusing part is the use of std::placeholders and _1 (which is used to express the notion of the instance pointer passed as the first implicit parameter to the instance function call),
+The confusing part is the use of **std::placeholders** and _1 (which is used to express the notion of the instance pointer passed as the first implicit parameter to the instance function call),
  which hardly looks obvious.
  
  ## Multicast Delegate Usage
@@ -175,7 +175,7 @@ class delegate<RET(PARAMS...)> final : private delegate_base<RET(PARAMS...)> {
 };
 ```
 
-The specialization **delegate<RET(PARAMS…)> **creates the convenient profile for template instantiation, similar to the template **std::function**:
+The specialization **delegate**<RET(PARAMS…)>creates the convenient profile for template instantiation, similar to the template **std::function**:
 
 ```cpp
 delegate<double(int, const string*)> del;
@@ -242,7 +242,8 @@ delegate and from lambda expressions of matching profiles. When existing list it
 
 ## Are the Delegates Comparable?
 
-Yes, they are, despite the statements made in Sergey’s article. “Comparison” is not a fully accurate term in this case; all the talking is actually about the equality or identity relation. As soon as this is meant by “comparison”, delegates are “comparable” — please see the set of “==” and “!=” operators. Several operators represent all cases of equality checks: each of the classes delegate and multicast_delegate can be equal or not equal to the instance of its own or another type, additionally, an instance of each type can be equal or not equal to nullptr. Taking into account commutativity, it gives 12 cases. For all of the purposes of such relation, this is a perfectly valid set of operators.
+Yes, they are, despite the statements made in Sergey’s article. “Comparison” is not a fully accurate term in this case; all the talking is actually about the equality or identity relation. As soon as this is meant by “comparison”, delegates are “comparable” — please see the set of **“==”** and **“!=”** operators.
+Several operators represent all cases of equality checks: each of the classes delegate and multicast_delegate can be equal or not equal to the instance of its own or another type, additionally, an instance of each type can be equal or not equal to nullptr. Taking into account commutativity, it gives 12 cases. For all of the purposes of such relation, this is a perfectly valid set of operators.
 
 Sergey argued that “a delegate doesn’t contain a pointer to method”. But why? It actually does contain such pointer, only this pointer is not passed to a delegate instance during run time. Instead, all the template instantiations generate the all the method addresses in the form of immediate constants, so the comparison of such pointers is done correctly but indirectly, through the comparison of different stubs. If two stub pointers are different, it always means that underlying function pointers are different, and visa versa.
 
@@ -267,4 +268,4 @@ The demo and benchmark project is provided in two forms: 1) **Visual Studio 2015
 
 I tested the code with **Visual Studio 2015**, **Clang 4.0.0**, **GCC 5.1.0**.
 
-The C++ options included “disable language extensions” (/Za for Microsoft and Clang), which seems to be essential for Microsoft. However, with this option, one weird Microsoft problem is the failure to compile “//” comments at the end of a file; the problem can be solved, for example, by adding an empty line at the end of the file; I set up a “Microsoft guard” in the form of “/* … */” at the end of each file.
+The C++ options included “disable language extensions” (**/Za** for Microsoft and Clang), which seems to be essential for Microsoft. However, with this option, one weird Microsoft problem is the failure to compile “//” comments at the end of a file; the problem can be solved, for example, by adding an empty line at the end of the file; I set up a “Microsoft guard” in the form of “/* … */” at the end of each file.
