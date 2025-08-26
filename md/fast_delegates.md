@@ -6,7 +6,7 @@ It is an answer to the article "Member Function Pointers and the Fastest Possibl
 
 It seems to be true that the FastDelegate is the fastest possible way. But I suppose that such a claim needs a proof because modern C++ optimizing compilers make incredible things. I believe that **boost::function** and other dynamic memory allocation based delegates are slow, but who said there are no other good approaches?
 
-###### I'm going to propose another approach, which:
+I'm going to propose another approach, which:
 
 1. is fast
 2. doesn't use dynamic allocated memory
@@ -135,3 +135,7 @@ For more details, see documentation.
 ## Conclusion
 
 May be some details of C++ design are not ideal, but I don't see any reason to break the C++ Standard. Moreover, sometimes hacking doesn't allow optimizers to present all of their abilities.
+
+## References
+
+* [Member Function Pointers and the Fastest Possible C++ Delegates" by Don Clugston](https://www.codeproject.com/Articles/11015/The-Impossibly-Fast-C-Delegates).
