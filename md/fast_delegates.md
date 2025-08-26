@@ -4,7 +4,7 @@
 
 It is an answer to the article "Member Function Pointers and the Fastest Possible C++ Delegates by Don Clugston". Don proposed an approach to delegates (further called FastDelegate) which requires the same invocation code as is produced for invocation by a pointer to member function in the simplest case (he described why some compilers produce more complex code for polymorphic classes and classes with virtual inheritance). He described why many other popular approaches are inefficient. Unfortunately, his approach is based on 'a horrible hack' (as he said). It works on many popular compilers, but is incompatible with the C++ Standard.
 
-It seems to be true that the FastDelegate is the fastest possible way. But I suppose that such a claim needs a proof because modern C++ optimizing compilers make incredible things. I believe that boost::function and other dynamic memory allocation based delegates are slow, but who said there are no other good approaches?
+It seems to be true that the FastDelegate is the fastest possible way. But I suppose that such a claim needs a proof because modern C++ optimizing compilers make incredible things. I believe that **boost::function** and other dynamic memory allocation based delegates are slow, but who said there are no other good approaches?
 
 ###### I'm going to propose another approach, which:
 
@@ -14,7 +14,7 @@ It seems to be true that the FastDelegate is the fastest possible way. But I sup
 
 ## Yet Another Approach to Delegates
 
-Let's consider a delegate which receives one argument and returns no value. It may be defined in the following way using the preferred syntax (as the boost::function and the FastDelegate, my library supports preferred and compatibility syntaxes; see documentation for details):
+Let's consider a delegate which receives one argument and returns no value. It may be defined in the following way using the preferred syntax (as the **boost::function** and the FastDelegate, my library supports preferred and compatibility syntaxes; see documentation for details):
 
 ```cpp
 delegate<void (int)>
@@ -117,16 +117,16 @@ I think it is because of the rarely used language features.
 
 ## Event Library
 
-I'm proposing an event library to demonstrate that delegates don't really need comparison operations. Actually, this event library isn't tight with my delegates. It can work with many kind of delegates including boost::function. Also, it can work with callback interfaces (like those of Java).
+I'm proposing an event library to demonstrate that delegates don't really need comparison operations. Actually, this event library isn't tight with my delegates. It can work with many kind of delegates including **boost::function**. Also, it can work with callback interfaces (like those of Java).
 
 My event library provides a fast method to subscribe and unsubscribe to an event producer (even during event emitting) and doesn't use dynamically allocated memory as well (it must be important to you if you are interested in fast delegates).
 
-This library provides two entities: event_source (it is a simplified analogue of boost::signal) and event_binder (an analogue of boost::signals::scoped_connection). Usually, an event producer keeps event_source and an event consumer keeps event_binder. A connection between a producer and a consumer exists while both event_source and event_binder exist.
+This library provides two entities: event_source (it is a simplified analogue of **boost::signal**) and event_binder (an analogue of **boost::signals::scoped_connection**). Usually, an event producer keeps event_source and an event consumer keeps event_binder. A connection between a producer and a consumer exists while both event_source and event_binder exist.
 
-You can't use an anonymous connection. Actually in Boost, you can use it in two ways:
+You can't use an anonymous connection. Actually in **Boost**, you can use it in two ways:
 
 1. You are absolutely sure that the event consumer exists longer than the event producer and
-2. You should use boost::signals::trackable as the base class of an event consumer (it is possible to implement the analogue in my library, but I'm not sure it is a good idea).
+2. You should use **boost::signals::trackable** as the base class of an event consumer (it is possible to implement the analogue in my library, but I'm not sure it is a good idea).
 
 You could use it in C#-style multicast delegates, but there is another problem: you must maintain pairs of actions (subscription and unsubscription), but their correctness can't be checked at compile time.
 
