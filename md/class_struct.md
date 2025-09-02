@@ -1,4 +1,4 @@
-# Class VS Struct
+# Class vs Struct
 
 In C++, struct and class are both used to define user-defined types, but they differ primarily in their default member access specifiers and default inheritance visibility.
 
